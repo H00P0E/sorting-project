@@ -12,9 +12,7 @@ def insertion_sort(nums: list[int]) -> int:
         while j > 0:
             num_comparisons += 1
             if nums[j] < nums[j-1]:
-                nums[j-1] = nums[j-1] ^ nums[j]
-                nums[j] = nums[j-1] ^ nums[j]
-                nums[j-1] = nums[j-1] ^ nums[j]
+                nums[j] , nums[j-1] = nums[j-1], nums[j]
                 j -= 1
             else:
                 break
