@@ -152,3 +152,7 @@ cython_debug/
 
 # VS Code
 .vscode/
+
+# Assignment submission
+project1_yromano.zip
+requirements.py
