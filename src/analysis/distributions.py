@@ -31,8 +31,7 @@ class ListDistributionGenerator:
         return uniformly_random_perm
 
     def almost_sorted(self) -> list[int]:
-        almost_sorted_perm = self.nums[:]
-        almost_sorted_perm.sort()
+        almost_sorted_perm = sorted(self.nums)
         n = len(almost_sorted_perm)
 
         if n <= 1:
@@ -45,3 +44,11 @@ class ListDistributionGenerator:
             almost_sorted_perm[i], almost_sorted_perm[j] = (almost_sorted_perm[j], almost_sorted_perm[i])
         
         return almost_sorted_perm
+    
+    def two_alternating_runs(self) -> list[int]:
+        base = sorted(self.nums)
+
+        odds = base[::2]
+        evens = base[1::2]
+
+        return odds + evens

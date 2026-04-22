@@ -121,3 +121,68 @@ def test_almost_sorted_preserves_duplicates():
     result = gen.almost_sorted()
 
     assert sorted(result) == sorted(nums)
+
+
+################################
+# TEST TWO ALTERNATING RUNS:
+################################
+
+def test_two_alternating_runs_basic():
+    nums = [5, 2, 4, 1, 3, 6]
+    gen = ListDistributionGenerator(nums, 42)
+
+    result = gen.two_alternating_runs()
+    expected = sorted(nums)[::2] + sorted(nums)[1::2]
+
+    assert result == expected
+
+
+def test_two_alternating_runs_preserves_elements():
+    nums = [5, 2, 4, 1, 3, 6]
+    gen = ListDistributionGenerator(nums, 42)
+
+    result = gen.two_alternating_runs()
+
+    assert sorted(result) == sorted(nums)
+
+
+def test_two_alternating_runs_does_not_modify_original():
+    nums = [5, 2, 4, 1, 3, 6]
+    gen = ListDistributionGenerator(nums, 42)
+
+    _ = gen.two_alternating_runs()
+
+    assert nums == [5, 2, 4, 1, 3, 6]
+
+
+def test_two_alternating_runs_with_duplicates():
+    nums = [3, 1, 3, 2, 2]
+    gen = ListDistributionGenerator(nums, 42)
+
+    result = gen.two_alternating_runs()
+
+    assert sorted(result) == sorted(nums)
+
+
+def test_two_alternating_runs_empty():
+    gen = ListDistributionGenerator([], 42)
+    assert gen.two_alternating_runs() == []
+
+
+def test_two_alternating_runs_single():
+    gen = ListDistributionGenerator([7], 42)
+    assert gen.two_alternating_runs() == [7]
+
+
+def test_two_alternating_runs_structure():
+    nums = [1, 2, 3, 4, 5, 6]
+    gen = ListDistributionGenerator(nums, 42)
+
+    result = gen.two_alternating_runs()
+
+    mid = (len(result) + 1) // 2
+    first_run = result[:mid]
+    second_run = result[mid:]
+
+    assert first_run == sorted(first_run)
+    assert second_run == sorted(second_run)
