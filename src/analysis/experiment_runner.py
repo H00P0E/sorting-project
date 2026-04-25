@@ -1,3 +1,5 @@
+import time
+
 from .registry import (ALGORITHMS, DISTRIBUTIONS)
 
 class Experiment:
@@ -19,9 +21,13 @@ class Experiment:
         expected = sorted(generated)
         nums = generated.copy()
 
+        start_time = time.perf_counter()
         comparisons = ALGORITHMS[self.sorting_algorithm](nums)
+        end_time = time.perf_counter()
+
+        running_time = end_time - start_time
 
         if nums != expected:
             raise ValueError(f"{self.sorting_algorithm} failed on {self.distribution} input of size {self.input_size}")
 
-        return comparisons
+        return running_time
